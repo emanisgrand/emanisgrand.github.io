@@ -140,6 +140,6 @@ As we stand on the brink of what VR can become, it's exciting to ponder the futu
 
 ---
 ### [LinkedIn](https://www.linkedin.com/in/emanuel-martinez-80118760/)
-### [Google Blocks](https://sites.google.com/view/em4ngifs/home)
+### [Google Blocks](https://sites.google.com/view/em4ngifs/blocks)
 ### [Licenses & Certifications](https://sites.google.com/view/em4ngifs/38?authuser=0)
 
