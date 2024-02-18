@@ -42,6 +42,9 @@ For VR applications, quaternions are pivotal in calculating the orientation of t
 #### Quaternion Rotation Formula:
 One fundamental operation with quaternions in VR is rotating a vector by a quaternion. The rotation of a vector \( \vec{v} \) by a quaternion \( Q \) can be represented as \( \vec{v}_{rot} = Q \vec{v} Q^{-1} \), where \( Q^{-1} \) is the inverse of \( Q \). This formula is crucial for determining how objects or views rotate in response to headset movements.
 
+![gimbal](https://github.com/emanisgrand/emanisgrand.github.io/assets/11033188/0626381c-6a06-4713-ab95-0c73bda228f6)
+
+
 #### Code Example: Quaternion-Based Rotation
 I'll make a code snippet that demonstrates quaternion-based rotation, which could be part of a VR system:
 Certainly! Let's convert the Python code example to C, focusing on the quaternion-based rotation operation:
