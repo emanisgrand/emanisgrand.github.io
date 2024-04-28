@@ -2,146 +2,112 @@
 
 ---
 
-### In the Loop: Spinning from Building Blocks to Google Blocks
+# Implementing GOAP
 
-In 2017, I joined the development team of Google Blocks, an award-winning VR application designed to democratize 3D modeling, making it accessible to all. As a newcomer amidst the brilliant minds shaping the future of virtual reality, the specter of imposter syndrome loomed large. Yet, it was a time brimming with exploratory fervor, and the ethos of the team I was part of was nothing short of empowering.
+## Introduction
 
-Encouraged to push boundaries and explore the uncharted, I delved into the intricacies of gyroscopes and accelerometers. These weren't just components of the smartphones we use every day; they were the keys to unlocking new dimensions in virtual reality. This exploration wasn't a diversion but a vital part of our collective journey into the unknown. The supportive environment at Google Blocks made it clear that taking the time to understand and experiment with the hardware we were using wasn't just permissible—it was indispensable.
+Hey there! Welcome to my dev log where I’m building a slick AI system for a future game project. In this, I’ll be diving deep into some cool AI concepts—Finite State Machines (FSM) and Goal-Oriented Action Planning (GOAP). These concepts are the bread and butter of crafting NPCs that don’t just stand around but actually get things done in a dynamic way.
 
-As I navigated through my initial doubts and the complexities of the technology, the venture into the depths of gyroscopes and accelerometers became more than just a task; it became a gateway to innovation in VR, laying the groundwork for advancements I could have hardly imagined at the time.
+### What’s an FSM?
 
----
-### The Basics of Gyroscopes and Accelerometers
+An FSM, or Finite State Machine, is all about keeping your game characters in check with specific behaviors or states. Think of it like the different vibes you get throughout the day—chill, alert, or flowing. For a game character, this could be chilling in 'patrol' mode, getting hyped in 'chase' mode when they spot you, or HAM in 'attack' mode when they catch up. The FSM manages these transitions smoothly based on what’s going down in the game.
 
-At the heart of our smartphones, hidden beneath sleek screens and glossy exteriors, lie gyroscopes and accelerometers. These sensors might not capture our attention like high-resolution cameras or vibrant displays, but they are fundamental to the way our devices interact with the world.
+### And GOAP?
 
-#### Gyroscopes:
-Imagine standing in the center of a spinning merry-go-round, holding your position steady as the world whirls around you. This is the essence of a gyroscope. It measures orientation and angular velocity, helping devices understand their rotation in space. In simpler terms, a gyroscope in your phone helps it know whether it's being tilted, turned, or spun.
+Goal-Oriented Action Planning takes things up a notch. It’s like giving your NPCs a mini-brain to plan their moves based on what they want to achieve. Instead of just reacting, they strategize like a chess player, considering various actions to reach their goals while responding to changes in the game environment. I’m still building toward this concept, but in short; GOAP is the GOAL.
 
-#### Accelerometers:
-Now, think of an elevator briskly ascending, pressing you gently into the floor. An accelerometer measures this type of acceleration - not just the speed, but the change in velocity. Whether you're walking, jumping, or just holding your phone, the accelerometer tracks these movements in any direction.
+Let’s get into how these concepts come together to create some clever NPC behaviors and set the stage for even more advanced AI down the line.
 
-These sensors, often working in tandem, allow our phones to perform tasks we take for granted, like switching from portrait to landscape view, tracking our steps, or stabilizing our photos. But their utility goes beyond just these everyday conveniences; they are also foundational elements in the development of immersive VR experiences.
+## Journey from FSM to GOAP: Why Inductive?
 
-#### From Phones to VR:
-In a VR headset, gyroscopes and accelerometers serve a similar but amplified purpose. They track the user's head movements with precision, translating real-world movements into virtual ones. This seamless integration of physical and digital movement is what makes VR truly immersive.
+Now, why take this step-by-step, inductive approach to morphing a basic FSM into a full-fledged GOAP system? Well, it's like learning a new track on guitar—you don't just jump into complex pieces without mastering the scales. Each state in the FSM acts like a chord, and the transitions are the rhythms that connect them. Building this up gradually lets me understand and control how each part interacts before adding in the next layer of complexity.
 
-Absolutely, let's integrate more technical elements into this section, focusing on quaternion mathematics and its application in VR through a specific formula and accompanying code example.
+### Building the FSM
 
----
+I kicked things off with a simple FSM setup for my game's enemy AI. At this stage, the AI had two main states: `IDLE` and `CHASING`. Here's how it played out:
 
-### Delving into the Technicalities: Quaternions in VR
+- **IDLE**: The default vibe. Here, the enemy chills and patrols a designated area, minding its own business unless things pop off—like spotting the player.
+- **CHASING**: Triggered when the enemy spots the player within a certain range. Now, the enemy switches up its mood from chill to no-chill actively pursuing the player.
 
-As we venture deeper into the technical backbone of VR, we encounter quaternions, a sophisticated mathematical tool that elegantly handles the complexities of 3D rotation and orientation. Quaternions extend beyond traditional 3D vector space, offering a more robust and less cumbersome solution than Euler angles, which can suffer from gimbal lock.
+This setup was my foundation. It’s simple but effective, setting the stage for more nuanced behaviors.
 
-#### Quaternions Explained:
-A quaternion is a four-part number system that can represent orientations and rotations in three-dimensional space more efficiently than other methods. A quaternion is typically represented as \( Q = a + bi + cj + dk \), where \( a, b, c, \) and \( d \) are real numbers, and \( i, j, \), and \( k \) are the fundamental quaternion units.
-
-For VR applications, quaternions are pivotal in calculating the orientation of the headset. They allow for smooth, continuous rotation without the pitfalls of gimbal lock, ensuring a more immersive and comfortable user experience.
-
-#### Quaternion Rotation Formula:
-One fundamental operation with quaternions in VR is rotating a vector by a quaternion. The rotation of a vector \( \vec{v} \) by a quaternion \( Q \) can be represented as \( \vec{v}_{rot} = Q \vec{v} Q^{-1} \), where \( Q^{-1} \) is the inverse of \( Q \). This formula is crucial for determining how objects or views rotate in response to headset movements.
-
-![gimbal](https://github.com/emanisgrand/emanisgrand.github.io/assets/11033188/0626381c-6a06-4713-ab95-0c73bda228f6)
-
-
-#### Code Example: Quaternion-Based Rotation
-I'll make a code snippet that demonstrates quaternion-based rotation, which could be part of a VR system:
-Certainly! Let's convert the Python code example to C, focusing on the quaternion-based rotation operation:
-
-```c
-#include <stdio.h>
-#include <math.h>
-
-// Quaternion structure
-typedef struct {
-    double w, x, y, z;
-} Quaternion;
-
-// Function to normalize a quaternion
-Quaternion normalizeQuaternion(Quaternion q) {
-    double norm = sqrt(q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z);
-    q.w /= norm;
-    q.x /= norm;
-    q.y /= norm;
-    q.z /= norm;
-    return q;
+```
+enum States {
+    IDLE,
+    CHASING
 }
 
-// Function to invert a quaternion
-Quaternion inverseQuaternion(Quaternion q) {
-    q.x = -q.x;
-    q.y = -q.y;
-    q.z = -q.z;
-    return q;  // Assuming quaternion is already normalized
-}
+var current_state = States.IDLE
 
-// Quaternion multiplication
-Quaternion multiplyQuaternions(Quaternion q1, Quaternion q2) {
-    Quaternion result;
-    result.w = q1.w*q2.w - q1.x*q2.x - q1.y*q2.y - q1.z*q2.z;
-    result.x = q1.w*q2.x + q1.x*q2.w + q1.y*q2.z - q1.z*q2.y;
-    result.y = q1.w*q2.y - q1.x*q2.z + q1.y*q2.w + q1.z*q2.x;
-    result.z = q1.w*q2.z + q1.x*q2.y - q1.y*q2.x + q1.z*q2.w;
-    return result;
-}
+func _physics_process(delta):
+    match current_state:
+        States.IDLE:
+            patrol()
+        States.CHASING:
+            chase_player()
 
-// Function to rotate a vector using a quaternion
-void rotateVectorByQuaternion(double vector[3], Quaternion q, double rotatedVector[3]) {
-    // Create a quaternion from the vector
-    Quaternion vectorQ = {0, vector[0], vector[1], vector[2]};
-    
-    // Normalize the quaternion to ensure it represents a valid rotation
-    q = normalizeQuaternion(q);
-
-    // Calculate the inverse of the quaternion
-    Quaternion qInverse = inverseQuaternion(q);
-
-    // Rotate the vector: v_rot = q * v * q^(-1)
-    Quaternion temp = multiplyQuaternions(q, vectorQ);
-    Quaternion rotatedVectorQ = multiplyQuaternions(temp, qInverse);
-
-    // Extract the rotated vector
-    rotatedVector[0] = rotatedVectorQ.x;
-    rotatedVector[1] = rotatedVectorQ.y;
-    rotatedVector[2] = rotatedVectorQ.z;
-}
-
-int main() {
-    // Example vector and quaternion
-    double vector[3] = {1, 0, 0};  // Arbitrary vector
-    Quaternion quaternion = {1, 0, 1, 0};  // Arbitrary quaternion
-    double rotatedVector[3];
-
-    // Rotate the vector using the quaternion
-    rotateVectorByQuaternion(vector, quaternion, rotatedVector);
-
-    printf("Rotated Vector: [%f, %f, %f]\n", rotatedVector[0], rotatedVector[1], rotatedVector[2]);
-
-    return 0;
-}
 ```
 
-This C code snippet defines a `Quaternion` structure, provides functions for normalizing and inverting quaternions, and implements quaternion multiplication to apply the rotation. The `rotateVectorByQuaternion` function demonstrates how to use these operations to rotate a 3D vector using quaternion rotation, which is essential for calculating the orientation changes in a VR headset.
+### From Simple to Complex
+
+Once I had the basic states rolling smoothly, I began integrating more complex transitions based on environmental cues and player actions. This wasn't just about seeing the player anymore; it was about deciding the best course of action in real-time, adapting to changes dynamically—essentially setting the groundwork for the GOAP to come.
+
+![https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJpa3poMHRwcTZrcHpsNXAzdG45YWYzZHp0Z3Njb2YzdHUzOGprbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ecdWpp1dtRgOOWUM7Q/giphy.gif](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExemJpa3poMHRwcTZrcHpsNXAzdG45YWYzZHp0Z3Njb2YzdHUzOGprbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ecdWpp1dtRgOOWUM7Q/giphy.gif)
 
 ---
 
-### Reflecting on the Journey
+## Dynamic Target Tracking
 
-As we reach the end of this technical voyage, it's worth pausing to reflect on the serendipitous nature of innovation. My journey from prototyping phone features at Google to unwittingly laying the groundwork for modern VR technology is a testament to the unpredictable paths that technological advancements often take.
+While in the `CHASING` state, it’s crucial that the NPC not only pursues the player but also faces them to simulate realistic engagement. The `look_at` function is used here to dynamically orient the NPC towards the player:
 
-#### The Unseen Impact of Exploration:
-My work with gyroscopes and accelerometers was driven by curiosity and the pursuit of enhancing user experience on mobile devices. Little did I know, the principles and algorithms we were experimenting with would become cornerstones in the rapidly evolving field of VR. This highlights the intrinsic value of exploration and experimentation, where the impact of today's innovations can extend far beyond their original scope.
+```
+func look_at_smoothly(target_position: Vector3, up_direction: Vector3):
+    look_at(target_position, up_direction)
 
-#### Bridging Worlds:
-The transition from using sensors in smartphones to facilitating immersive experiences in VR showcases the remarkable versatility of these technologies. It also underscores the importance of interdisciplinary knowledge and the blending of ideas from seemingly unrelated fields. The leap from a handheld device to an immersive virtual environment is both a technological marvel and a creative leap, made possible by viewing familiar tools through a new lens.
+```
 
-#### The Future of VR and Beyond:
-As we stand on the brink of what VR can become, it's exciting to ponder the future possibilities. The foundational work in sensor technology and inverse camera tracking is just the beginning. The next frontier involves enhancing realism, reducing latency, and creating more intuitive interactions within virtual spaces. The journey from simple sensor applications to complex VR systems illustrates the iterative nature of innovation, where each advancement builds upon the last, pushing the boundaries of what's possible.
+This function is called every frame during the chase, ensuring that the NPC is always facing the player, adding to the realism and challenge of the game.
+
+### Enhancing the Transition with Tweens
+
+To smooth out the transitions between states and add a flair to the NPC's movements, I integrated Tween animations:
+
+```
+func exit_chasing():
+    var tween = create_tween()  # Create a new Tween instance
+    tween.tween_property(self, "rotation_degrees:y", rotation_degrees.y + 360, 1.0)
+    tween.start()
+
+```
+
+This snippet from `exit_chasing` demonstrates how I use a Tween to add a 360-degree spin when the NPC stops chasing, which not only looks cool but also gives me a clear visual cue that the NPC's state has changed. 
 
 ---
 
+## Next
+
+We've laid down a solid foundation with our basic FSM, integrating state transitions and dynamic behaviors that pave the way towards a more advanced AI system. This captures just the beginning of creating a sophisticated GOAP system that can handle complex decision-making scenarios for NPCs in games.
+
+### Recap of Our Progress
+
+From setting up the initial states of `IDLE` and `CHASING` to implementing dynamic target tracking and enhancing visual cues with Tween animations, I've got a light framework that not only functions effectively but also looks good in action. The FSM serves as the groundwork from which we can expand, introducing more nuanced behaviors and responses that are typical of GOAP systems.
+
+### Moving Forward
+
+The next phase of development will focus on layering more complexity into our AI's decision-making processes. Here’s what’s coming up:
+
+- **Expanding State Variety**: Introducing additional states such as `ALERT`, `SEARCH`, and `ATTACK` to provide a richer set of behaviors that NPCs can switch between based on their goals and the player's actions.
+- **Integrating Environmental Cues**: Making the AI more responsive to the game environment, such as reacting to time of day, other NPCs, or game data.
+- **Developing Cost-Based Decision Making**: Each potential action will have a cost associated with it, and the AI will choose actions based on a cost-benefit analysis, bringing us closer to a true GOAP system.
+
+### Wrapping It Up
+
+As I continue to develop and refine the AI, I'll keep documenting the process to share both the triumphs and hurdles along the way.
+
+Stay tuned for more updates. as we push the boundaries of what this game AI can do.
+
 ---
+### [Read In The Loop: From Building Blocks to Google Blocks](./in-the-loop.md)
 ### [LinkedIn](https://www.linkedin.com/in/emanuel-martinez-80118760/)
 ### [Google Blocks](https://sites.google.com/view/em4ngifs/blocks)
 ### [Licenses & Certifications](https://sites.google.com/view/em4ngifs/38?authuser=0)
