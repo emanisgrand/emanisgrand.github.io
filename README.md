@@ -1,5 +1,8 @@
-# emanisgrand.github.io
-
+# Welcome
+### [Read In The Loop: From Building Blocks to Google Blocks](./in-the-loop.md)
+### [LinkedIn](https://www.linkedin.com/in/emanuel-martinez-80118760/)
+### [Google Blocks](https://sites.google.com/view/em4ngifs/blocks)
+### [Licenses & Certifications](https://sites.google.com/view/em4ngifs/38?authuser=0)
 ---
 
 # Implementing GOAP
@@ -107,8 +110,5 @@ As I continue to develop and refine the AI, I'll keep documenting the process to
 Stay tuned for more updates. as we push the boundaries of what this game AI can do.
 
 ---
-### [Read In The Loop: From Building Blocks to Google Blocks](./in-the-loop.md)
-### [LinkedIn](https://www.linkedin.com/in/emanuel-martinez-80118760/)
-### [Google Blocks](https://sites.google.com/view/em4ngifs/blocks)
-### [Licenses & Certifications](https://sites.google.com/view/em4ngifs/38?authuser=0)
+
 
